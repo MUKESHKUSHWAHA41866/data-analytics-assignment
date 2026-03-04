@@ -71,7 +71,8 @@ def top_customers_analysis(df):
 def category_performance_analysis(df):
 
     category_perf = (
-        df.groupby("category")
+        df[df["status"] == "completed"]
+        .groupby("category")
         .agg(
             total_revenue=("amount", "sum"),
             avg_order_value=("amount", "mean"),
@@ -88,7 +89,8 @@ def category_performance_analysis(df):
 def regional_analysis(df):
 
     regional = (
-        df.groupby("region")
+        df[df["status"] == "completed"]
+        .groupby("region")
         .agg(
             num_customers=("customer_id", "nunique"),
             num_orders=("order_id", "count"),

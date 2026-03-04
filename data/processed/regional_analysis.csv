@@ -1,5 +1,4 @@
 region,num_customers,num_orders,total_revenue,avg_revenue_per_customer
-North,1,2,1225.0,1225.0
+North,1,1,1200.0,1200.0
 South,1,1,800.0,800.0
-Unknown,1,1,0.0,0.0
 West,1,1,45.0,45.0
