@@ -1,0 +1,6 @@
+order_id,customer_id,product,amount,order_date,status
+101,1,Laptop,1200,2023-01-10,completed
+102,2,Phone,800,10/02/2023,done
+103,3,Tablet,,03-15-2023,pending
+104,1,Mouse,25,2023-03-20,canceled
+105,4,Keyboard,45,22/04/2023,completed

@@ -1,0 +1,6 @@
+customer_id,name,email,region,signup_date
+1,Mukesh Kushwaha,MUKESH@MAIL.COM,North,2023-01-01
+2,Rahul Sharma,rahul@mail.com,South,2023-02-15
+3,Anita Singh,anita@mail.com,,2023-03-10
+2,Rahul Sharma,rahul@mail.com,South,2023-02-15
+4, Vivek Kumar ,vivek@mail.com,West,2023-04-20
