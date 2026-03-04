@@ -196,6 +196,111 @@ http://localhost:5173
 
 ---
 
+## Alternative: Start with Docker Containers
+
+### Prerequisites
+
+- Docker and Docker Compose installed
+- Ensure port 5173 (frontend) and 8000 (backend) are available
+
+### Option 1: Backend Only
+
+```bash
+docker-compose up backend
+```
+
+Backend API available at: `http://localhost:8000`
+
+### Option 2: Both Frontend & Backend
+
+```bash
+docker-compose --profile with-frontend up
+```
+
+Access:
+- Frontend: `http://localhost:5173`
+- Backend API: `http://localhost:8000`
+- API Documentation: `http://localhost:8000/docs`
+
+### Option 3: Rebuild and Start Fresh
+
+```bash
+docker-compose --profile with-frontend up --build
+```
+
+### Useful Docker Commands
+
+View container logs:
+```bash
+# All services
+docker-compose --profile with-frontend logs -f
+
+# Backend only
+docker-compose logs -f backend
+
+# Frontend only
+docker-compose --profile with-frontend logs -f frontend
+```
+
+Stop containers:
+```bash
+docker-compose --profile with-frontend down
+```
+
+---
+
+# Running Tests
+
+## Unit Tests for Data Cleaning Functions
+
+The project includes comprehensive pytest unit tests for the data cleaning pipeline.
+
+### Run All Tests
+
+```bash
+pytest tests/test_clean_data.py -v
+```
+
+### Run Specific Test Class
+
+```bash
+# Test date parsing
+pytest tests/test_clean_data.py::TestParseDate -v
+
+# Test customer cleaning
+pytest tests/test_clean_data.py::TestCleanCustomers -v
+
+# Test order cleaning
+pytest tests/test_clean_data.py::TestCleanOrders -v
+
+# Test integration tests
+pytest tests/test_clean_data.py::TestIntegration -v
+```
+
+### Run Single Test
+
+```bash
+pytest tests/test_clean_data.py::TestParseDate::test_parse_date_yyyy_mm_dd_format -v
+```
+
+### Generate Coverage Report
+
+```bash
+pytest tests/test_clean_data.py --cov=clean_data --cov-report=html
+```
+
+### Test Results
+
+```
+24 tests covering:
+✓ Date parsing (5 tests)
+✓ Customer cleaning (7 tests)
+✓ Order cleaning (10 tests)
+✓ Integration tests (3 tests)
+```
+
+---
+
 # Dashboard Features
 
 * Monthly Revenue Trend Chart

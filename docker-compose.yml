@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: data-analytics-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      # Bind mount for CSV data files - allows hot-reload of data without rebuilding
+      - ./data/processed:/app/data/processed
+      - ./data/raw:/app/data/raw
+    environment:
+      - PYTHONUNBUFFERED=1  # Ensure Python output is unbuffered for better logging
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    networks:
+      - analytics-network
+
+  # Optional: Add frontend service for complete stack
+  frontend:
+    image: node:20-alpine
+    container_name: data-analytics-frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    depends_on:
+      - backend
+    networks:
+      - analytics-network
+    profiles:
+      - with-frontend  # Only run with: docker-compose --profile with-frontend up
+
+networks:
+  analytics-network:
+    driver: bridge
